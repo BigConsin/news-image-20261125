@@ -148,13 +148,170 @@ def mini_chart(draw, kind, box):
                   fill=(255, 255, 255))
 
 
+
+def drawn_scene(draw, name, box):
+    """Simple flat code-drawn pictures (winner-style: drawn, not photos)."""
+    x0, y0, x1, y1 = box
+    w, h = x1 - x0, y1 - y0
+    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+    if name == "rocket.webp":
+        draw.rectangle(box, fill=(24, 34, 74))
+        for i in range(14):
+            sx = x0 + (i * 67) % max(w - 4, 1)
+            sy = y0 + (i * 37) % max(h - 10, 1)
+            draw.ellipse([sx, sy, sx + 2.5, sy + 2.5], fill=(230, 230, 240))
+        draw.rectangle([x0, y1 - h * 0.16, x1, y1], fill=(52, 44, 38))
+        bx = cx - w * 0.045
+        draw.polygon([(bx, y0 + h * 0.30), (cx, y0 + h * 0.08),
+                      (bx + w * 0.09, y0 + h * 0.30)], fill=(235, 235, 235))
+        draw.rectangle([bx, y0 + h * 0.30, bx + w * 0.09, y0 + h * 0.80],
+                       fill=(225, 225, 228))
+        draw.rectangle([bx - w * 0.035, y0 + h * 0.52, bx, y0 + h * 0.80],
+                       fill=(198, 52, 44))
+        draw.rectangle([bx + w * 0.09, y0 + h * 0.52, bx + w * 0.125,
+                        y0 + h * 0.80], fill=(198, 52, 44))
+        draw.polygon([(bx + w * 0.01, y0 + h * 0.80), (cx, y1 - h * 0.10),
+                      (bx + w * 0.08, y0 + h * 0.80)], fill=(245, 170, 60))
+        tx = cx + w * 0.16
+        for f_ in range(5):
+            yy = y0 + h * (0.14 + f_ * 0.15)
+            draw.line([tx, yy, tx + w * 0.10, yy], fill=(150, 155, 170), width=2)
+        draw.line([tx, y0 + h * 0.10, tx, y1 - h * 0.14], fill=(150, 155, 170),
+                  width=3)
+        for ex in (-0.30, -0.18, 0.20, 0.32):
+            exx = cx + w * ex
+            draw.ellipse([exx - w * 0.07, y1 - h * 0.24, exx + w * 0.07,
+                          y1 - h * 0.12], fill=(215, 215, 220))
+    elif name == "chips.webp":
+        draw.rectangle(box, fill=(16, 22, 34))
+        s = min(w, h) * 0.52
+        draw.rectangle([cx - s / 2, cy - s / 2, cx + s / 2, cy + s / 2],
+                       fill=(38, 52, 78), outline=(110, 190, 240), width=2)
+        s2 = s * 0.52
+        draw.rectangle([cx - s2 / 2, cy - s2 / 2, cx + s2 / 2, cy + s2 / 2],
+                       fill=(24, 34, 54), outline=(110, 190, 240), width=1)
+        for i in range(5):
+            off = -s / 2 + (i + 0.5) * s / 5
+            draw.line([cx - s / 2 - w * 0.07, cy + off, cx - s / 2, cy + off],
+                      fill=(110, 190, 240), width=2)
+            draw.line([cx + s / 2, cy + off, cx + s / 2 + w * 0.07, cy + off],
+                      fill=(110, 190, 240), width=2)
+            draw.line([cx + off, cy - s / 2 - h * 0.07, cx + off, cy - s / 2],
+                      fill=(110, 190, 240), width=2)
+            draw.line([cx + off, cy + s / 2, cx + off, cy + s / 2 + h * 0.07],
+                      fill=(110, 190, 240), width=2)
+        ax, ay = x1 - w * 0.30, y0 + h * 0.16
+        draw.polygon([(ax, ay), (ax + w * 0.13, ay + h * 0.05),
+                      (ax + w * 0.05, ay + h * 0.13), (ax + w * 0.16,
+                      ay + h * 0.16), (ax + w * 0.02, ay + h * 0.30),
+                      (ax - w * 0.02, ay + h * 0.14), (ax - w * 0.09,
+                      ay + h * 0.17)], fill=(225, 60, 50))
+    elif name == "gaza.webp":
+        draw.rectangle(box, fill=(196, 120, 70))
+        draw.rectangle([x0, y0 + h * 0.34, x1, y1], fill=(120, 74, 52))
+        for i, (bw_, bh_) in enumerate([(0.20, 0.42), (0.15, 0.55),
+                                        (0.24, 0.36), (0.16, 0.48)]):
+            bx = x0 + w * (0.05 + i * 0.24)
+            by = y1 - h * bh_
+            draw.rectangle([bx, by, bx + w * bw_, y1], fill=(52, 40, 38))
+            for r_ in range(3):
+                for c_ in range(2):
+                    wx = bx + w * bw_ * (0.18 + c_ * 0.42)
+                    wy = by + h * bh_ * (0.16 + r_ * 0.28)
+                    draw.rectangle([wx, wy, wx + w * bw_ * 0.2,
+                                    wy + h * bh_ * 0.14], fill=(240, 205, 130))
+        draw.ellipse([cx + w * 0.10, y0 + h * 0.06, cx + w * 0.24,
+                      y0 + h * 0.30], fill=(90, 84, 88))
+        draw.ellipse([cx + w * 0.16, y0 + h * 0.02, cx + w * 0.30,
+                      y0 + h * 0.22], fill=(104, 98, 102))
+    elif name == "drone.webp":
+        draw.rectangle(box, fill=(18, 28, 52))
+        for i in range(16):
+            sx = x0 + (i * 53) % max(w - 4, 1)
+            sy = y0 + (i * 29) % max(h - 8, 1)
+            draw.ellipse([sx, sy, sx + 2, sy + 2], fill=(210, 215, 230))
+        r = min(w, h) * 0.10
+        for dx, dy in [(-1, -1), (1, -1), (-1, 1), (1, 1)]:
+            ex, ey = cx + dx * w * 0.13, cy + dy * h * 0.20
+            draw.ellipse([ex - r, ey - r * 0.4, ex + r, ey + r * 0.4],
+                         outline=(225, 228, 235), width=2)
+            draw.line([cx, cy, ex, ey], fill=(225, 228, 235), width=2)
+        draw.rectangle([cx - w * 0.055, cy - h * 0.09, cx + w * 0.055,
+                        cy + h * 0.09], fill=(225, 228, 235))
+        draw.ellipse([cx - 4, cy - 4, cx + 4, cy + 4], fill=(225, 60, 50))
+    elif name == "treaty.webp":
+        draw.rectangle(box, fill=(30, 90, 140))
+        draw.ellipse([x0 + w * 0.06, y0 + h * 0.10, x0 + w * 0.20,
+                      y0 + h * 0.36], fill=(245, 200, 90))
+        for i in range(3):
+            yy = y0 + h * (0.58 + i * 0.14)
+            draw.arc([x0 - w * 0.1 + i * w * 0.06, yy - h * 0.10,
+                      x1 + w * 0.1, yy + h * 0.16], 180, 360,
+                     fill=(170, 220, 245), width=2)
+        draw.polygon([(x0 + w * 0.52, y0 + h * 0.20), (x0 + w * 0.94,
+                       y0 + h * 0.20), (x0 + w * 0.94, y0 + h * 0.46),
+                      (x0 + w * 0.52, y0 + h * 0.46)], fill=(200, 40, 40))
+        draw.polygon([(x0 + w * 0.52, y0 + h * 0.20), (x0 + w * 0.73,
+                       y0 + h * 0.33), (x0 + w * 0.52, y0 + h * 0.46)],
+                     fill=(20, 40, 110))
+    elif name == "mine.webp":
+        draw.rectangle(box, fill=(26, 22, 18))
+        draw.polygon([(x0 + w * 0.30, y1), (cx, y0 + h * 0.30),
+                      (x0 + w * 0.70, y1)], fill=(58, 48, 38))
+        draw.ellipse([cx - w * 0.05, y0 + h * 0.16, cx + w * 0.05,
+                      y0 + h * 0.34], fill=(250, 215, 120))
+        draw.polygon([(cx - w * 0.03, y0 + h * 0.32), (cx - w * 0.16, y1),
+                      (cx + w * 0.16, y1), (cx + w * 0.03, y0 + h * 0.32)],
+                     fill=(250, 225, 150))
+        draw.rectangle([x0, y1 - h * 0.10, x1, y1], fill=(14, 12, 10))
+    elif name == "capitol.webp":
+        draw.rectangle(box, fill=(30, 44, 84))
+        base = y1 - h * 0.14
+        draw.rectangle([x0, base, x1, y1], fill=(40, 52, 44))
+        bw_ = w * 0.62
+        draw.rectangle([cx - bw_ / 2, base - h * 0.30, cx + bw_ / 2, base],
+                       fill=(228, 230, 235))
+        draw.pieslice([cx - bw_ * 0.26, base - h * 0.78, cx + bw_ * 0.26,
+                       base - h * 0.06], 180, 360, fill=(228, 230, 235))
+        draw.rectangle([cx - w * 0.012, base - h * 0.86, cx + w * 0.012,
+                        base - h * 0.62], fill=(228, 230, 235))
+        for i in range(7):
+            wx = cx - bw_ / 2 + bw_ * (0.08 + i * 0.135)
+            draw.rectangle([wx, base - h * 0.20, wx + bw_ * 0.05, base],
+                           fill=(52, 70, 110))
+    elif name == "storm.webp":
+        draw.rectangle(box, fill=(52, 64, 84))
+        for ex, ey, ew in [(0.16, 0.16, 0.34), (0.48, 0.10, 0.40),
+                           (0.30, 0.26, 0.44)]:
+            draw.ellipse([x0 + w * ex, y0 + h * ey, x0 + w * (ex + ew),
+                          y0 + h * (ey + 0.30)], fill=(168, 178, 195))
+        for i in range(9):
+            rx = x0 + w * (0.08 + i * 0.105)
+            draw.line([rx, y0 + h * 0.55, rx - w * 0.03, y0 + h * 0.78],
+                      fill=(130, 180, 230), width=2)
+        draw.arc([x0 - w * 0.05, y0 + h * 0.66, x1 + w * 0.05, y1 + h * 0.2],
+                 180, 360, fill=(90, 150, 200), width=3)
+    elif name == "cricket.webp":
+        draw.rectangle(box, fill=(36, 110, 52))
+        draw.rectangle([cx - w * 0.05, y0 + h * 0.12, cx + w * 0.05, y1],
+                       fill=(206, 188, 140))
+        for sx in (-0.035, 0.0, 0.035):
+            draw.line([cx + w * sx, y0 + h * 0.16, cx + w * sx, y0 + h * 0.30],
+                      fill=(240, 240, 240), width=2)
+        draw.polygon([(cx + w * 0.16, y0 + h * 0.52), (cx + w * 0.21,
+                       y0 + h * 0.54), (cx + w * 0.10, y0 + h * 0.86),
+                      (cx + w * 0.05, y0 + h * 0.84)], fill=(150, 105, 60))
+        draw.ellipse([cx - w * 0.19, y0 + h * 0.58, cx - w * 0.13,
+                      y0 + h * 0.70], fill=(200, 40, 40))
+    else:
+        draw.rectangle(box, fill=(60, 60, 66))
+
+
 def card_visual(img, draw, story, box, big=None):
     x0, y0, x1, y1 = box
     kind, arg = story["kind"]
     if kind == "img":
-        src = Image.open(ASSETS / arg).convert("L")
-        src = ImageOps.autocontrast(src)
-        img.paste(ImageOps.fit(src, (x1 - x0, y1 - y0)), (x0, y0))
+        drawn_scene(draw, arg, box)
     else:
         mini_chart(draw, arg, box)
     num_badge(draw, x0 + 17, y0 + 17, story["num"])
@@ -360,7 +517,9 @@ def main():
     draw.text(((W - tw) / 2, H - 26), D.SOURCES_LINE, font=f(SANS, 7.5),
               fill=GREY)
 
-    img.save(HERE / "entry.png", optimize=True)
+    img.convert("RGB").quantize(colors=256,
+                                method=Image.MEDIANCUT).save(
+        HERE / "entry.png", optimize=True)
     print("wrote", HERE / "entry.png")
 
 
